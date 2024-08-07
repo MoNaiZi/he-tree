@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.7](https://github.com/phphe/he-tree/compare/docs-site@1.4.6...docs-site@1.4.7) (2024-08-07)
+
+**Note:** Version bump only for package docs-site
+
+
+
+
+
 ## [1.4.6](https://github.com/phphe/he-tree/compare/docs-site@1.4.5...docs-site@1.4.6) (2024-03-12)
 
 **Note:** Version bump only for package docs-site

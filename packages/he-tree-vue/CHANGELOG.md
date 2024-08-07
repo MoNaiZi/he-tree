@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.3](https://github.com/phphe/he-tree/compare/@he-tree/vue@2.8.2...@he-tree/vue@2.8.3) (2024-08-07)
+
+
+### Bug Fixes
+
+* **a method:** removeMulti ([583f707](https://github.com/phphe/he-tree/commit/583f707a8fe0051ec686469925d0c9caa387c279))
+
+
+
+
+
 ## [2.8.2](https://github.com/phphe/he-tree/compare/@he-tree/vue@2.8.1...@he-tree/vue@2.8.2) (2024-03-12)
 
 
