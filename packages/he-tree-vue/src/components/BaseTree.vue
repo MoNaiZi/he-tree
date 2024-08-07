@@ -220,8 +220,9 @@ const cpt = defineComponent({
     },
     remove: processorMethodProxy("remove") as TreeProcessor["remove"],
     removeMulti(dataArr: any[]) {
+      let cloned = [...dataArr];
       this.batchUpdate(() => {
-        for (const data of dataArr) {
+        for (const data of cloned) {
           this.remove(data);
         }
       });
