@@ -33,6 +33,7 @@
             template(#popper)
               .shadow.rounded.text-sm
                 Anchor.block.py-2.px-3(v-for="item in versions" class="hover:bg-gray-100" :to="item.homePath") {{$t(item.version)}}
+        Anchor.main-menu-item(to="https://he-tree-react.phphe.com/") React Tree 👑👑👑
         Anchor.main-menu-item(:to="githubURL" v-if="githubURL") Github
         Anchor.main-menu-item.buy-me-coffee(v-if="DONATE_URL" :to="DONATE_URL")
           img(alt="Buy me a coffee" :src="coffeeImg")
@@ -59,105 +60,105 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { routeViewKey, reloadRouteView } from '../router'
-import { state } from '../store'
-import { versions, version, menu, homeUrl } from '../current'
-import { switchLocale } from '../i18n'
-import * as hp from 'helper-js'
-import useWindowSize from '../plugins/useWindowSize'
-import config from '../config'
-import DocsMenuItem from '../parts/DocsMenuItem.vue'
-import SearchModal from '../parts/SearchModal.vue'
-import { mdiMenu, mdiSearch } from 'mdi-js/filled'
-import { useRouter } from 'vue-router'
-import GithubButton from 'vue-github-button'
-import coffeeImg from "../assets/img/coffee.jpg";
+  import { defineComponent, computed } from 'vue'
+  import { routeViewKey, reloadRouteView } from '../router'
+  import { state } from '../store'
+  import { versions, version, menu, homeUrl } from '../current'
+  import { switchLocale } from '../i18n'
+  import * as hp from 'helper-js'
+  import useWindowSize from '../plugins/useWindowSize'
+  import config from '../config'
+  import DocsMenuItem from '../parts/DocsMenuItem.vue'
+  import SearchModal from '../parts/SearchModal.vue'
+  import { mdiMenu, mdiSearch } from 'mdi-js/filled'
+  import { useRouter } from 'vue-router'
+  import GithubButton from 'vue-github-button'
+  import coffeeImg from '../assets/img/coffee.jpg'
 
-export default defineComponent({
-  components: { DocsMenuItem, SearchModal, GithubButton },
-  setup(props) {
-    const router = useRouter()
-    const windowSize = useWindowSize()
-    const sm = computed(() => windowSize.value.innerWidth < 760)
-    const githubURL = computed(() =>
-      config.GIT_NAME ? 'https://github.com/' + config.GIT_NAME : ''
-    )
-    return {
-      routeViewKey,
-      reloadRouteView,
-      sm,
-      mdiMenu,
-      mdiSearch,
-      menu,
-      versions,
-      version,
-      homeUrl,
-      githubURL,
-      DONATE_URL: config.DONATE_URL,
-      coffeeImg,
-    }
-  },
-  data() {
-    return {
-      state,
-      sidebarVisible: false,
-      year: new Date().getFullYear(),
-      config,
-      searchModalOpen: false,
-    }
-  },
-  watch: {},
-  async created() { },
-  mounted() { },
-  methods: {
-    switchLocale(to: string) {
-      switchLocale(to, this.$router, this.$route)
+  export default defineComponent({
+    components: { DocsMenuItem, SearchModal, GithubButton },
+    setup(props) {
+      const router = useRouter()
+      const windowSize = useWindowSize()
+      const sm = computed(() => windowSize.value.innerWidth < 760)
+      const githubURL = computed(() =>
+        config.GIT_NAME ? 'https://github.com/' + config.GIT_NAME : ''
+      )
+      return {
+        routeViewKey,
+        reloadRouteView,
+        sm,
+        mdiMenu,
+        mdiSearch,
+        menu,
+        versions,
+        version,
+        homeUrl,
+        githubURL,
+        DONATE_URL: config.DONATE_URL,
+        coffeeImg,
+      }
     },
-  },
-})
+    data() {
+      return {
+        state,
+        sidebarVisible: false,
+        year: new Date().getFullYear(),
+        config,
+        searchModalOpen: false,
+      }
+    },
+    watch: {},
+    async created() {},
+    mounted() {},
+    methods: {
+      switchLocale(to: string) {
+        switchLocale(to, this.$router, this.$route)
+      },
+    },
+  })
 </script>
 
 <style lang="scss">
-.main-menu-item {
-  @apply block mb-2 font-semibold;
+  .main-menu-item {
+    @apply block mb-2 font-semibold;
 
-  &.router-link-active {
-    @apply text-primary-500 text-lg;
+    &.router-link-active {
+      @apply text-primary-500 text-lg;
+    }
   }
-}
 
-.main-body {
-  min-height: 750px;
-  min-height: calc(100vh - 100px);
-}
-
-.mobile-menu-nav {
-  $h: 48px;
-  height: $h;
-  line-height: $h;
-  position: sticky;
-  top: 0;
-  background: #fff;
-  z-index: 1;
-}
-
-.mobile-main-title {
-  font-size: 1.3em;
-}
-
-.main-search-icon {
-  align-self: flex-end;
-}
-
-.buy-me-coffee {
-  color: #2a2a2a;
-  background-color: #e4d7c5;
-  @apply flex items-center;
-
-  img {
-    width: 50px;
-    margin-right: 10px;
+  .main-body {
+    min-height: 750px;
+    min-height: calc(100vh - 100px);
   }
-}
+
+  .mobile-menu-nav {
+    $h: 48px;
+    height: $h;
+    line-height: $h;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+  }
+
+  .mobile-main-title {
+    font-size: 1.3em;
+  }
+
+  .main-search-icon {
+    align-self: flex-end;
+  }
+
+  .buy-me-coffee {
+    color: #2a2a2a;
+    background-color: #e4d7c5;
+    @apply flex items-center;
+
+    img {
+      width: 50px;
+      margin-right: 10px;
+    }
+  }
 </style>
