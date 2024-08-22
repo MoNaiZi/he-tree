@@ -19,12 +19,11 @@
   "homepage": "https://hetree.phphe.com/",
   "main": "dist/v3/index.cjs.js",
   "module": "dist/v3/index.es.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/v3/index.d.ts",
   "jsdelivr": "dist/v3/index.iife.js",
   "unpkg": "dist/v3/index.iife.js",
   "files": [
     "dist",
-    "types",
     "vue2",
     "style"
   ],
@@ -35,7 +34,7 @@
     ".": {
       "require": "./dist/v3/index.cjs.js",
       "import": "./dist/v3/index.es.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/v3/index.d.ts"
     },
     "./vue2": {
       "require": "./vue2/index.js",
@@ -69,9 +68,9 @@
     }
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.2.0",
-    "vite": "^2.8.0",
-    "vite-plugin-dts": "^0.9.9",
+    "@vitejs/plugin-vue": "^5.1.2",
+    "vite": "^5.4.2",
+    "vite-plugin-dts": "^4.0.3",
     "vue": "^3.2.25"
   }
 }
