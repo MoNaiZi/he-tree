@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.5](https://github.com/phphe/he-tree/compare/@he-tree/vue@2.8.4...@he-tree/vue@2.8.5) (2024-08-22)
+
+
+### Bug Fixes
+
+* **build:** fix build formats: es, cjs, umd ([2ef32db](https://github.com/phphe/he-tree/commit/2ef32dbe4558e71418c807c8a1b91df7733d3275))
+
+
+
+
+
 ## [2.8.4](https://github.com/phphe/he-tree/compare/@he-tree/vue@2.8.3...@he-tree/vue@2.8.4) (2024-08-22)
 
 
