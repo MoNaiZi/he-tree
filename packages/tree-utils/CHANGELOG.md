@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.6](https://github.com/phphe/he-tree/compare/@he-tree/tree-utils@0.1.0-alpha.4...@he-tree/tree-utils@0.1.0-alpha.6) (2024-10-02)
+
+
+### Bug Fixes
+
+* bug in behavior of tree by 4-levels structure and more ([559ae71](https://github.com/phphe/he-tree/commit/559ae71c429eb219ef98cdaaa0bcce1c3b9dd733))
+
+
+
+
+
 # [0.1.0-alpha.4](https://github.com/phphe/he-tree/compare/@he-tree/tree-utils@0.1.0-alpha.3...@he-tree/tree-utils@0.1.0-alpha.4) (2023-12-26)
 
 
