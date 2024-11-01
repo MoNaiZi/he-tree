@@ -788,6 +788,10 @@ Draggable 组件实例. 拖拽的起始树.
 
 Draggable 组件实例. 拖拽的目标树.
 
+#### closestNode
+
+类型: [Stat](#Stat)|null. 拖拽时最近的节点.可以在 [eachDroppable](#eachdroppable) 中使用.
+
 #### Example - dragContext
 
 在[eachDroppable](#eachdroppable)中通过 dragContext 获取 dragNode，达成效果：奇数节点只接收奇数节点，偶数节点只接收偶数节点。

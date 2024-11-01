@@ -789,6 +789,10 @@ Draggable component instance. The tree drag start at.
 
 Draggable component instance. Drag target tree.
 
+#### closestNode
+
+Type: [Stat](#Stat)|null. The closest node in dragging. You can use it in [eachDroppable](#eachdroppable).
+
 #### Example - dragContext
 
 Use the dragContext to obtain the dragNode in [eachDroppable](#eachdroppable) and achieve the following effect: odd nodes only accept odd nodes, even nodes only accept even nodes.
