@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.9.1](https://github.com/phphe/he-tree/compare/@he-tree/vue@2.9.0...@he-tree/vue@2.9.1) (2024-11-01)
+
+
+### Bug Fixes
+
+* **docs:** fix readme ([81987bb](https://github.com/phphe/he-tree/commit/81987bb45daa8654c93246fa3ed812d122a528be))
+
+
+
+
+
 # [2.9.0](https://github.com/phphe/he-tree/compare/@he-tree/vue@2.8.7...@he-tree/vue@2.9.0) (2024-11-01)
 
 
