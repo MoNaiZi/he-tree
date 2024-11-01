@@ -770,11 +770,11 @@ import { dragContext } from '@he-tree/vue/vue2'
 
 #### startInfo
 
-类型: [StartInfo](#StartInfo). 拖拽开始的信息.
+类型: [StartInfo](#startinfo-1). 拖拽开始的信息.
 
 #### targetInfo
 
-类型: [StartInfo](#StartInfo). 拖拽的目标的信息.
+类型: [StartInfo](#startinfo-1). 拖拽的目标的信息.
 
 #### dragNode
 

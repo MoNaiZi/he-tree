@@ -771,11 +771,11 @@ import { dragContext } from '@he-tree/vue/vue2'
 
 #### startInfo
 
-Type: [StartInfo](#StartInfo). Info about drag start.
+Type: [StartInfo](#startinfo-1). Info about drag start.
 
 #### targetInfo
 
-Type: [StartInfo](#StartInfo). Info about drag target.
+Type: [StartInfo](#startinfo-1). Info about drag target.
 
 #### dragNode
 
