@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.9.0](https://github.com/phphe/he-tree/compare/@he-tree/vue@2.8.7...@he-tree/vue@2.9.0) (2024-11-01)
+
+
+### Features
+
+* **dragcontext:** add closestNode ([b095a51](https://github.com/phphe/he-tree/commit/b095a5111783baf683116637df0a26fcb33e7096))
+
+
+
+
+
 ## [2.8.7](https://github.com/phphe/he-tree/compare/@he-tree/vue@2.8.6...@he-tree/vue@2.8.7) (2024-10-02)
 
 

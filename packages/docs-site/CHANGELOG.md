@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.12](https://github.com/phphe/he-tree/compare/docs-site@1.4.11...docs-site@1.4.12) (2024-11-01)
+
+
+### Bug Fixes
+
+* **doc:** doc anchor ([c573749](https://github.com/phphe/he-tree/commit/c5737495d0bae7b31261f1ebf19ec4216c3a864f))
+
+
+
+
+
 ## [1.4.11](https://github.com/phphe/he-tree/compare/docs-site@1.4.10...docs-site@1.4.11) (2024-10-02)
 
 
