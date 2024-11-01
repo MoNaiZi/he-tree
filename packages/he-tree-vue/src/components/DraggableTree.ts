@@ -21,6 +21,7 @@ let dragOpenLastNode: Nullable<Stat<any>>;
 let startMovePoint: Point;
 let startMouse: Point;
 let dragNode: Nullable<Stat<any>>;
+let closestNode: Nullable<Stat<any>>;
 
 export const context = {
   get startInfo() {
@@ -37,6 +38,9 @@ export const context = {
   },
   get targetTree() {
     return targetTree;
+  },
+  get closestNode() {
+    return closestNode;
   },
 };
 
@@ -634,6 +638,7 @@ const cpt = defineComponent({
               }
               return false;
             };
+            closestNode = prevNode || null // assign to public variable
             if (!prevNode) {
               if (targetTree!.isDroppable(null)) {
                 parent = null;
@@ -828,6 +833,7 @@ const cpt = defineComponent({
         targetTree = null;
         dragOpenLastNode = null;
         dragNode = null;
+        closestNode = null;
       },
     });
   },
