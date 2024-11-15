@@ -24,7 +24,7 @@ importers:
     dependencies:
       '@he-tree/vue':
         specifier: latest
-        version: 2.8.7(@vue/composition-api@1.4.9(vue@3.2.31))(vue@3.2.31)
+        version: 2.9.1(@vue/composition-api@1.4.9(vue@3.2.31))(vue@3.2.31)
       '@vue/composition-api':
         specifier: ^1.4.6
         version: 1.4.9(vue@3.2.31)
@@ -63,7 +63,7 @@ importers:
   packages/docs-site:
     dependencies:
       '@he-tree/vue':
-        specifier: workspace:^2.9.1
+        specifier: workspace:^2.9.2
         version: link:../he-tree-vue
       '@tailwindcss/forms':
         specifier: ^0.5.2
@@ -1781,8 +1781,8 @@ packages:
   '@he-tree/tree-utils@0.1.0-alpha.6':
     resolution: {integrity: sha512-TIH1iIRLpn3sjd4EuIfKQzFd6ToY8GLYk3i5bfK1njCW7lBBDHLqSyK0mlJPbCPk4PfkZBC4K+sMcYyH4hokyg==}
 
-  '@he-tree/vue@2.8.7':
-    resolution: {integrity: sha512-Ii6lRTtj7F9wylCZ23H001ucVGgtOrHmmLB3LA8KY4LolmCNwHb8VOnfRSMnk5JccoQuYLPIFAEnRdFbqzdFSA==}
+  '@he-tree/vue@2.9.1':
+    resolution: {integrity: sha512-twdq+BjHtCPpsSp+AiI4YpusuLIHM2khg6Wy+r6FZxvTpSMV8ILQRL9IquIfjwjUk8C/fMQW2fi8lQwXne4IMA==}
     engines: {node: '>=12'}
     peerDependencies:
       '@vue/composition-api': ^1.4.6
@@ -10816,7 +10816,7 @@ snapshots:
       drag-event-service: 2.0.0
       helper-js: 3.1.2
 
-  '@he-tree/vue@2.8.7(@vue/composition-api@1.4.9(vue@3.2.31))(vue@3.2.31)':
+  '@he-tree/vue@2.9.1(@vue/composition-api@1.4.9(vue@3.2.31))(vue@3.2.31)':
     dependencies:
       '@he-tree/dnd-utils': 0.1.0-alpha.4
       '@he-tree/tree-utils': 0.1.0-alpha.6
@@ -11542,7 +11542,7 @@ snapshots:
 
   '@soda/get-current-script@1.0.2': {}
 
-  '@stylelint/postcss-css-in-js@0.37.3(postcss-syntax@0.36.2(postcss-html@0.36.0)(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@7.0.39))(postcss@7.0.39)':
+  '@stylelint/postcss-css-in-js@0.37.3(postcss-syntax@0.36.2)(postcss@7.0.39)':
     dependencies:
       '@babel/core': 7.18.9
       postcss: 7.0.39
@@ -11550,7 +11550,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@stylelint/postcss-markdown@0.36.2(postcss-syntax@0.36.2(postcss-html@0.36.0)(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@7.0.39))(postcss@7.0.39)':
+  '@stylelint/postcss-markdown@0.36.2(postcss-syntax@0.36.2)(postcss@7.0.39)':
     dependencies:
       postcss: 7.0.39
       postcss-syntax: 0.36.2(postcss@8.4.8)
@@ -18167,8 +18167,8 @@ snapshots:
 
   stylelint@13.13.1:
     dependencies:
-      '@stylelint/postcss-css-in-js': 0.37.3(postcss-syntax@0.36.2(postcss-html@0.36.0)(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@7.0.39))(postcss@7.0.39)
-      '@stylelint/postcss-markdown': 0.36.2(postcss-syntax@0.36.2(postcss-html@0.36.0)(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@7.0.39))(postcss@7.0.39)
+      '@stylelint/postcss-css-in-js': 0.37.3(postcss-syntax@0.36.2)(postcss@7.0.39)
+      '@stylelint/postcss-markdown': 0.36.2(postcss-syntax@0.36.2)(postcss@7.0.39)
       autoprefixer: 9.8.8
       balanced-match: 2.0.0
       chalk: 4.1.2

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.9.2](https://github.com/phphe/he-tree/compare/@he-tree/vue@2.9.1...@he-tree/vue@2.9.2) (2024-11-15)
+
+
+### Bug Fixes
+
+* **dragopen:** beforeDragOpen not triggered when dragOpenDelay is null or 0 ([eec6061](https://github.com/phphe/he-tree/commit/eec6061217418644182ae2c0ee066fcb0e2881a2))
+
+
+
+
+
 ## [2.9.1](https://github.com/phphe/he-tree/compare/@he-tree/vue@2.9.0...@he-tree/vue@2.9.1) (2024-11-01)
 
 
