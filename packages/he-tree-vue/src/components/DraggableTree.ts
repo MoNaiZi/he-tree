@@ -569,6 +569,9 @@ const cpt = defineComponent({
                 return true;
               } else if (targetTree!.dragOpen) {
                 if (!targetTree!.dragOpenDelay) {
+                  if (targetTree!.beforeDragOpen) {
+                    await targetTree!.beforeDragOpen(stat);
+                  }
                   stat.open = true;
                   return true;
                 } else {
@@ -638,7 +641,7 @@ const cpt = defineComponent({
               }
               return false;
             };
-            closestNode = prevNode || null // assign to public variable
+            closestNode = prevNode || null; // assign to public variable
             if (!prevNode) {
               if (targetTree!.isDroppable(null)) {
                 parent = null;
