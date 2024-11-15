@@ -13,6 +13,10 @@ Vue 树组件. [React 点这](https://github.com/phphe/he-tree-react). 特点: �
 
 [React Tree](https://github.com/phphe/he-tree-react) | [React 版树组件](https://github.com/phphe/he-tree-react) 👑👑👑
 
+## Sponsors
+
+Sponsors' logos and links will be displayed here and in the documentation. [Become a Sponsor](https://www.patreon.com/phphe).
+
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
