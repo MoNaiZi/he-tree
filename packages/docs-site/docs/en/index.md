@@ -2,7 +2,7 @@
 
 [中文](/zh) | [English](/)
 
-**Vue tree component**. Features: Vue2, Vue3, TypeScript, SSR, nested, virtual, list, draggable, sortable, placeholder for drag, table tree, based on Drag and Drop API, deal with any other code based on Drag and Drop API.
+**Vue tree component**. **_Free, open-source, MIT_**. Features: Vue2, Vue3, TypeScript, SSR, nested, virtual, list, draggable, sortable, placeholder for drag, table tree, based on Drag and Drop API, deal with any other code based on Drag and Drop API.
 
 [Guide](./v2/guide.md) | [Demo](./v2/guide.md#Examples)
 
@@ -79,9 +79,9 @@
 </script>
 ```
 
-## License
+## Sponsors
 
-MIT
+Sponsors' logos and links will be displayed in the documentation and github page. [Become a Sponsor](https://www.patreon.com/phphe).
 
 ## React
 

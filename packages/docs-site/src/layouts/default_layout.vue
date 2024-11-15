@@ -38,6 +38,7 @@
         Anchor.main-menu-item.buy-me-coffee(v-if="DONATE_URL" :to="DONATE_URL")
           img(alt="Buy me a coffee" :src="coffeeImg")
           span Buy me a coffee
+        Anchor.main-menu-item(:to="SPONSOR_URL" v-if="SPONSOR_URL") Sponsor and show your logo
         //- Anchor.main-menu-item(v-if="config.IS_DEVLOPMENT" @click="reloadRouteView()") Reload Route
         //- .flex-shrink-0.py-2.text-center
   .main-right.flex-grow.overflow-auto.relative()
@@ -96,6 +97,7 @@
         homeUrl,
         githubURL,
         DONATE_URL: config.DONATE_URL,
+        SPONSOR_URL: config.SPONSOR_URL,
         coffeeImg,
       }
     },

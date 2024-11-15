@@ -9,6 +9,7 @@ export default {
   ORIGIN_PROD: 'https://hetree.phphe.com', // production host name
   GIT_NAME: 'phphe/he-tree',
   DONATE_URL: 'https://www.paypal.com/paypalme/phphe',
+  SPONSOR_URL: 'https://www.patreon.com/phphe',
   VERSION: '2.x',
   MENU: [
     {
@@ -22,6 +23,10 @@ export default {
     {
       text: 'Pro',
       path: '/pro',
+    },
+    {
+      text: 'Quick support',
+      path: '/quick-support',
     },
     {
       text: 'Hire Me',
@@ -67,6 +72,7 @@ export default {
         Search: '搜索',
         'No search results': '没有匹配的结果',
         Pro: 'Pro',
+        'Quick support': '快速支持',
         'Hire Me': '雇佣我',
       },
     },
