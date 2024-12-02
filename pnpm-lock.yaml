@@ -24,7 +24,7 @@ importers:
     dependencies:
       '@he-tree/vue':
         specifier: latest
-        version: 2.9.1(@vue/composition-api@1.4.9(vue@3.2.31))(vue@3.2.31)
+        version: 2.9.2(@vue/composition-api@1.4.9(vue@3.2.31))(vue@3.2.31)
       '@vue/composition-api':
         specifier: ^1.4.6
         version: 1.4.9(vue@3.2.31)
@@ -63,7 +63,7 @@ importers:
   packages/docs-site:
     dependencies:
       '@he-tree/vue':
-        specifier: workspace:^2.9.2
+        specifier: workspace:^2.9.3
         version: link:../he-tree-vue
       '@tailwindcss/forms':
         specifier: ^0.5.2
@@ -1781,8 +1781,8 @@ packages:
   '@he-tree/tree-utils@0.1.0-alpha.6':
     resolution: {integrity: sha512-TIH1iIRLpn3sjd4EuIfKQzFd6ToY8GLYk3i5bfK1njCW7lBBDHLqSyK0mlJPbCPk4PfkZBC4K+sMcYyH4hokyg==}
 
-  '@he-tree/vue@2.9.1':
-    resolution: {integrity: sha512-twdq+BjHtCPpsSp+AiI4YpusuLIHM2khg6Wy+r6FZxvTpSMV8ILQRL9IquIfjwjUk8C/fMQW2fi8lQwXne4IMA==}
+  '@he-tree/vue@2.9.2':
+    resolution: {integrity: sha512-un8lCyORvIaJ57P7zzM4pxnsaXTuQNm8Jp7Sk16gOsW8LvEyWQK98wZ/gi/Avwoi5hyqWvauqxACva5TQfvnsw==}
     engines: {node: '>=12'}
     peerDependencies:
       '@vue/composition-api': ^1.4.6
@@ -10816,7 +10816,7 @@ snapshots:
       drag-event-service: 2.0.0
       helper-js: 3.1.2
 
-  '@he-tree/vue@2.9.1(@vue/composition-api@1.4.9(vue@3.2.31))(vue@3.2.31)':
+  '@he-tree/vue@2.9.2(@vue/composition-api@1.4.9(vue@3.2.31))(vue@3.2.31)':
     dependencies:
       '@he-tree/dnd-utils': 0.1.0-alpha.4
       '@he-tree/tree-utils': 0.1.0-alpha.6

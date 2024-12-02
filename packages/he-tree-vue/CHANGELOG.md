@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.9.3](https://github.com/phphe/he-tree/compare/@he-tree/vue@2.9.2...@he-tree/vue@2.9.3) (2024-12-02)
+
+
+### Bug Fixes
+
+* fix no 'window' in uniapp env ([d235889](https://github.com/phphe/he-tree/commit/d2358890e3aae4b43f673d8ef42a9de31bb188b8))
+
+
+
+
+
 ## [2.9.2](https://github.com/phphe/he-tree/compare/@he-tree/vue@2.9.1...@he-tree/vue@2.9.2) (2024-11-15)
 
 
