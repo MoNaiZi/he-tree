@@ -1,24 +1,49 @@
 <template>
-  <VirtualList class="he-tree" :class="{
-    'he-tree--rtl rtl': rtl,
-    'he-tree--drag-overing drag-overing': dragOvering,
-  }" ref="vtlist" :items="visibleStats" :disabled="!virtualization" :table="table" :itemKey="nodeKey">
+  <VirtualList
+    class="he-tree"
+    :class="{
+      'he-tree--rtl rtl': rtl,
+      'he-tree--drag-overing drag-overing': dragOvering,
+    }"
+    ref="vtlist"
+    :items="visibleStats"
+    :disabled="!virtualization"
+    :table="table"
+    :itemKey="nodeKey"
+  >
     <template #prepend>
       <slot name="prepend" :tree="self"></slot>
     </template>
     <template #default="{ item: stat, index }">
-      <TreeNode :vt-index="index" :class="[
-        stat.class,
-        {
-          'drag-placeholder-wrapper': stat.data === placeholderData,
-          'dragging-node': stat === dragNode,
-        },
-      ]" :style="stat.style" :stat="stat" :rtl="rtl" :btt="btt" :indent="indent" :table="table" :treeLine="treeLine"
-        :treeLineOffset="treeLineOffset" :processor="processor" @click="$emit('click:node', stat)"
-        @open="$emit('open:node', $event)" @close="$emit('close:node', $event)" @check="$emit('check:node', $event)">
+      <TreeNode
+        :vt-index="index"
+        :class="[
+          stat.class,
+          {
+            'drag-placeholder-wrapper': stat.data === placeholderData,
+            'dragging-node': stat === dragNode,
+          },
+        ]"
+        :style="stat.style"
+        :stat="stat"
+        :rtl="rtl"
+        :btt="btt"
+        :indent="indent"
+        :table="table"
+        :treeLine="treeLine"
+        :treeLineOffset="treeLineOffset"
+        :processor="processor"
+        @click="$emit('click:node', stat)"
+        @open="$emit('open:node', $event)"
+        @close="$emit('close:node', $event)"
+        @check="$emit('check:node', $event)"
+      >
         <template #default="{ indentStyle }">
           <template v-if="stat.data === placeholderData">
-            <div v-if="!table" class="drag-placeholder he-tree-drag-placeholder">
+            <div
+              v-if="!table"
+              class="drag-placeholder he-tree-drag-placeholder"
+            >
               <slot name="placeholder" :tree="self"></slot>
             </div>
             <td v-else :style="indentStyle" :colspan="placeholderColspan">
@@ -27,7 +52,13 @@
               </div>
             </td>
           </template>
-          <slot v-else :node="stat.data" :stat="stat" :indentStyle="indentStyle" :tree="self">{{ stat.data[textKey] }}
+          <slot
+            v-else
+            :node="stat.data"
+            :stat="stat"
+            :indentStyle="indentStyle"
+            :tree="self"
+            >{{ stat.data[textKey] }}
           </slot>
         </template>
       </TreeNode>
@@ -104,7 +135,7 @@ const cpt = defineComponent({
       type: [String, Function] as PropType<
         "index" | ((stat: Stat<any>, index: number) => any)
       >,
-      default: 'index',
+      default: "index",
     },
     treeLine: { type: Boolean, default: false },
     treeLineOffset: { type: Number, default: 8 },
@@ -159,7 +190,7 @@ const cpt = defineComponent({
       return items.filter((stat) => isVisible(stat));
     },
     rootChildren() {
-      return this.stats
+      return this.stats;
     },
   },
   methods: {
@@ -197,7 +228,9 @@ const cpt = defineComponent({
     ) as TreeProcessor["getUnchecked"],
     openAll: processorMethodProxy("openAll") as TreeProcessor["openAll"],
     closeAll: processorMethodProxy("closeAll") as TreeProcessor["closeAll"],
-    openNodeAndParents: processorMethodProxy("openNodeAndParents") as TreeProcessor["openNodeAndParents"],
+    openNodeAndParents: processorMethodProxy(
+      "openNodeAndParents"
+    ) as TreeProcessor["openNodeAndParents"],
     isVisible: processorMethodProxy("isVisible") as TreeProcessor["isVisible"],
     move: processorMethodProxyWithBatchUpdate("move") as TreeProcessor["move"],
     add: reactiveFirstArg(
@@ -277,11 +310,11 @@ const cpt = defineComponent({
           };
           processor["_statHandler2"] = this.statHandler
             ? (stat) => {
-              if (stat.data === this.placeholderData) {
-                return stat;
+                if (stat.data === this.placeholderData) {
+                  return stat;
+                }
+                return this.statHandler!(stat);
               }
-              return this.statHandler!(stat);
-            }
             : null;
           processor.afterSetStat = (stat, parent, index) => {
             const { childrenKey, updateBehavior } = this;
@@ -343,7 +376,7 @@ const cpt = defineComponent({
     valueComputed: {
       handler(value) {
         // isDragging triggered in Vue2 because its array is not same with Vue3
-        const isDragging = this.dragOvering || this.dragNode
+        const isDragging = this.dragOvering || this.dragNode;
         if (isDragging || this._ignoreValueChangeOnce) {
           this._ignoreValueChangeOnce = false;
         } else {
@@ -356,22 +389,24 @@ const cpt = defineComponent({
       },
     },
   },
-  created() { },
+  created() {},
   mounted() {
-    if (this.watermark === false) {
-      // @ts-ignore
-      window._heTreeWatermarkDisabled = true;
-    }
-    // @ts-ignore
-    if (this.watermark && !window._heTreeWatermarkDisabled) {
-      // @ts-ignore
-      if (!window._heTreeWatermark) {
+    if (typeof window !== "undefined") {
+      if (this.watermark === false) {
         // @ts-ignore
-        window._heTreeWatermark = true;
-        console.log(
-          `%c[he-tree] Vue tree component:  https://hetree.phphe.com`,
-          "color:#0075ff; font-size:14px;"
-        );
+        window._heTreeWatermarkDisabled = true;
+      }
+      // @ts-ignore
+      if (this.watermark && !window._heTreeWatermarkDisabled) {
+        // @ts-ignore
+        if (!window._heTreeWatermark) {
+          // @ts-ignore
+          window._heTreeWatermark = true;
+          console.log(
+            `%c[he-tree] Vue tree component:  https://hetree.phphe.com`,
+            "color:#0075ff; font-size:14px;"
+          );
+        }
       }
     }
   },
