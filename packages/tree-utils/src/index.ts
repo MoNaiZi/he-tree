@@ -105,10 +105,10 @@ export function makeTreeProcessor<T>(data: T[], opt: Options = {}) {
           const parentChecked = hasHalfChecked
             ? 0
             : !hasUnchecked
-            ? true
-            : hasChecked
-            ? 0
-            : false;
+              ? true
+              : hasChecked
+                ? 0
+                : false;
 
           if (parent.checked !== parentChecked) {
             this._ignoreCheckedOnce(parent);
@@ -194,7 +194,7 @@ export function makeTreeProcessor<T>(data: T[], opt: Options = {}) {
     },
     openNodeAndParents(nodeOrStat: T | Stat<T>) {
       // @ts-ignore
-      const stat:Stat<T> = nodeOrStat["isStat"] ? nodeOrStat : this.getStat(nodeOrStat) // prettier-ignore
+      const stat: Stat<T> = nodeOrStat["isStat"] ? nodeOrStat : this.getStat(nodeOrStat) // prettier-ignore
       for (const parentStat of this.iterateParent(stat, {
         withSelf: true,
       })) {
@@ -387,8 +387,8 @@ export const defaultOptions = {
   statsFlatHandler(statsFlat: Stat<any>[]) {
     return statsFlat;
   },
-  afterSetStat(stat: Stat<any>, parent: Stat<any> | null, index: number) {},
-  afterRemoveStat(stat: Stat<any>) {},
+  afterSetStat(stat: Stat<any>, parent: Stat<any> | null, index: number) { },
+  afterRemoveStat(stat: Stat<any>) { },
   statHandler(stat: Stat<any>) {
     return stat;
   },

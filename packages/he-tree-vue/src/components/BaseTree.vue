@@ -148,6 +148,7 @@ const cpt = {
       return items.filter((stat) => isVisible(stat));
     },
     rootChildren() {
+      console.log('rootChildren')
       return this.stats;
     },
   },
@@ -263,14 +264,16 @@ const cpt = {
               return nodeData[childrenKey];
             }
           };
-          processor["_statHandler2"] = this.statHandler
-            ? (stat) => {
-              if (stat.data === this.placeholderData) {
-                return stat;
-              }
-              return this.statHandler(stat);
-            }
-            : null;
+
+          // processor["_statHandler2"] = this.statHandler
+          //   ? (stat) => {
+          //     if (stat.data === this.placeholderData) {
+          //       return stat;
+          //     }
+          //     return this.statHandler(stat);
+          //   }
+          //   : null;
+
           processor.afterSetStat = (stat, parent, index) => {
             const { childrenKey, updateBehavior } = this;
             let value = this.valueComputed;
@@ -312,6 +315,7 @@ const cpt = {
             this._updateValue(value);
           };
         }
+
         if (!processor.initialized) {
           processor.data = this.valueComputed;
           Object.assign(
