@@ -11,5 +11,5 @@
     "noImplicitAny": false,
     "lib": ["esnext", "dom"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/components/DraggableTree.js"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/components/DraggableTree.js", "src/components/TreeProcessorVue.js"]
 }
