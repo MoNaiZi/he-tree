@@ -1,9 +1,9 @@
 import BaseTree from "./BaseTree.vue";
-import { Stat, CHILDREN } from "@he-tree/tree-utils";
-import { context as ctx, Point } from "@he-tree/dnd-utils";
-import { extendedDND, ExtendedDND } from "@he-tree/dnd-utils";
-import * as hp from "helper-js";
+import { CHILDREN } from "@he-tree/tree-utils";
+import { context as ctx } from "@he-tree/dnd-utils";
 
+import { extendedDND } from "@he-tree/dnd-utils";
+import * as hp from "helper-js";
 
 let startTree = null;
 let targetTree = null;
@@ -96,17 +96,15 @@ const cpt = {
   data() {
     return {
       treeDraggableInstance: null,
-    } as {
-      treeDraggableInstance: ExtendedDND | null;
     };
   },
   computed: {},
   methods: {
-    getNodeByElement(el: HTMLElement): Stat<any> | null {
+    getNodeByElement(el) {
       const i = el.getAttribute("vt-index");
       return i == null ? null : this.visibleStats[i];
     },
-    isDraggable(node: Stat<any>): boolean {
+    isDraggable(node) {
       if (this.disableDrag) {
         return false;
       }
@@ -126,7 +124,7 @@ const cpt = {
         return this.isDraggable(parent);
       }
     },
-    isDroppable(node: Stat<any> | null): boolean {
+    isDroppable(node) {
       if (this.disableDrop) {
         return false;
       }
@@ -172,7 +170,7 @@ const cpt = {
     //   );
     // }
     //
-    const isMoved = (mouse: Point, lastMouse: Point) => {
+    const isMoved = (mouse, lastMouse) => {
       let r = true;
       if (startTree && startTree !== this) {
         r = r && this["_isMoved"];
@@ -183,17 +181,17 @@ const cpt = {
       return r && (mouse.x !== lastMouse.x || mouse.y !== lastMouse.y);
     };
     //
-    const movePlaceholder = (parent: Stat<any> | null, index: number) => {
-      targetTree!.ignoreUpdate(() => {
+    const movePlaceholder = (parent, index) => {
+      targetTree.ignoreUpdate(() => {
         // get placeholder
-        if (!targetTree!.has(targetTree!.placeholderData)) {
-          if (targetTree!.table) {
+        if (!targetTree.has(targetTree.placeholderData)) {
+          if (targetTree.table) {
             let colspan = 0;
-            const tr = targetTree!.getRootEl().querySelector("tr");
+            const tr = targetTree.getRootEl().querySelector("tr");
             if (tr) {
-              for (const {
-                value: childEl,
-              } of hp.iterateAll<HTMLTableCellElement>(tr.children)) {
+              for (const { value: childEl } of hp.iterateAll <
+                HTMLTableCellElement >
+                tr.children) {
                 if (hp.css(childEl, "display") !== "none") {
                   colspan += childEl.colSpan || 1;
                 }
@@ -202,12 +200,12 @@ const cpt = {
             if (colspan < 1) {
               colspan = 1;
             }
-            targetTree!.placeholderColspan = colspan;
+            targetTree.placeholderColspan = colspan;
           }
-          targetTree!.add(targetTree!.placeholderData);
+          targetTree.add(targetTree.placeholderData);
         }
-        const placeholder = targetTree!.getStat(targetTree!.placeholderData);
-        targetTree!.move(placeholder, parent, index);
+        const placeholder = targetTree.getStat(targetTree.placeholderData);
+        targetTree.move(placeholder, parent, index);
       });
     };
     const removePlaceholder = () => {
@@ -220,14 +218,14 @@ const cpt = {
     /**
      * set cursor should be synchronously with event. This function will try update cursor at next dragover event.
      */
-    const setCursor = (droppable: boolean) => {
+    const setCursor = (droppable) => {
       if (!droppable) {
         ctx.dropEffect = "none";
       } else {
         ctx.dropEffect = startTree?.dragCopy ? "copy" : "move";
       }
     };
-    const setDroppable = (droppable: boolean) => {
+    const setDroppable = (droppable) => {
       const tree = this; // targetTree
       if (!droppable) {
         if (!tree.keepPlaceholder) {
@@ -242,20 +240,20 @@ const cpt = {
     };
     let lastMouse = { x: 0, y: 0 }; // for dragover to detect if moved
     const rootEl = this.getRootEl();
-    let dragElement: HTMLElement | null = null; // dragElement is the drag node element
+    let dragElement = null; // dragElement is the drag node element
     const removePlaceholderWhenEnd = () => {
-      if (targetTree?.has(targetTree!.placeholderData)) {
-        targetTree!.ignoreUpdate(() => {
-          targetTree!.remove(targetTree!.getStat(targetTree!.placeholderData));
+      if (targetTree?.has(targetTree.placeholderData)) {
+        targetTree.ignoreUpdate(() => {
+          targetTree.remove(targetTree.getStat(targetTree.placeholderData));
           // update together to prevent flick
           if (startTree) {
-            startTree.dragNode!.hidden = false;
+            startTree.dragNode.hidden = false;
             startTree.dragOvering = false;
           }
         });
       }
     };
-    console.log('rootEl', rootEl)
+
     this.treeDraggableInstance = extendedDND(rootEl, {
       beforeDragStart: (event) => {
         // triggerElement trigger click
@@ -326,14 +324,14 @@ const cpt = {
             return this.resolveStartMovePoint(dragElement);
           } else {
             // top_left
-            let point: Point;
+            let point;
             let height = 0;
             if (!this.table) {
               if (!this.rtl) {
                 point = dragElement.children[0]
                   .getBoundingClientRect()
                   .toJSON();
-                height = (<DOMRect>point).height;
+                height = point.height;
               } else {
                 const rect = dragElement.children[0].getBoundingClientRect();
                 point = {
@@ -353,11 +351,11 @@ const cpt = {
             if (this.btt) {
               point.y += height;
             }
-            return point!;
+            return point;
           }
         })();
         this.dragOvering = true;
-        const siblings = startTree.getSiblings(startTree!.dragNode!);
+        const siblings = startTree.getSiblings(startTree.dragNode);
         const indexBeforeDrop = siblings.indexOf(dragNode);
         startInfo = {
           tree: startTree,
@@ -373,8 +371,8 @@ const cpt = {
         ); // required for Chrome Andriod, or Drag and Drop API does't  work
         if (!startTree._eachDroppable()) {
           setTimeout(() => {
-            dragNode!.hidden = true;
-            movePlaceholder(dragNode!.parent, indexBeforeDrop + 1);
+            dragNode.hidden = true;
+            movePlaceholder(dragNode.parent, indexBeforeDrop + 1);
           }, 0);
         }
         this.ondragstart?.(event);
@@ -391,7 +389,7 @@ const cpt = {
         this.$emit("leave", event);
       },
       onDragOver: hp.applyFinally(
-        (event: DragEvent) => {
+        (event) => {
           if (!startTree) {
             // from external
             if (
@@ -416,23 +414,23 @@ const cpt = {
           targetTree = this;
           const movePoint = startMovePoint
             ? {
-              x: startMovePoint.x + (mouse.x - startMouse.x),
-              y: startMovePoint.y + (mouse.y - startMouse.y),
-            }
+                x: startMovePoint.x + (mouse.x - startMouse.x),
+                y: startMovePoint.y + (mouse.y - startMouse.y),
+              }
             : { ...mouse };
           const { btt, rtl } = targetTree;
           // if undroppable, return
-          if (targetTree!.disableDrop) {
+          if (targetTree.disableDrop) {
             ctx.dropEffect = "none";
             return;
           }
 
-          let prevNode: Stat<any> | null;
-          let nextNode: Stat<any> | null;
+          let prevNode;
+          let nextNode;
           const nodeList = targetTree
             .getRootEl()
             .querySelectorAll(`.tree-node`);
-          const nodeEls: HTMLElement[] = [];
+          const nodeEls = [];
           nodeList.forEach((el) => {
             if (
               !hp.hasClassIn(el, [
@@ -441,7 +439,7 @@ const cpt = {
               ]) &&
               hp.css(el, "display") !== "none"
             ) {
-              nodeEls.push(el as HTMLElement);
+              nodeEls.push(el);
             }
           });
           const t = hp.binarySearch(
@@ -450,10 +448,10 @@ const cpt = {
               hp.getBoundingClientRect(node)[!btt ? "top" : "bottom"] -
               movePoint.y,
             { returnNearestIfNoHit: true }
-          )!;
-          let prevIndex: number | null = null;
-          let prevNodeEl: HTMLElement;
-          let nextNodeEl: HTMLElement;
+          );
+          let prevIndex = null;
+          let prevNodeEl;
+          let nextNodeEl;
           if (t.hit) {
           } else {
             if (t.greater) {
@@ -479,26 +477,26 @@ const cpt = {
           }
           prevNodeEl = nodeEls[prevIndex];
           nextNodeEl = !btt ? nodeEls[prevIndex + 1] : nodeEls[prevIndex - 1];
-          prevNode = prevNodeEl && targetTree!.getNodeByElement(prevNodeEl);
-          nextNode = nextNodeEl && targetTree!.getNodeByElement(nextNodeEl);
+          prevNode = prevNodeEl && targetTree.getNodeByElement(prevNodeEl);
+          nextNode = nextNodeEl && targetTree.getNodeByElement(nextNodeEl);
 
           //
           const { indent } = targetTree;
           // prev node BoundingClientRect
           // the element is the first child of prevNode
           const prevBCR = hp.cacheFunction(() => {
-            if (!targetTree!.table) {
-              return hp.getBoundingClientRect(prevNodeEl.firstElementChild!);
+            if (!targetTree.table) {
+              return hp.getBoundingClientRect(prevNodeEl.firstElementChild);
             } else {
               let r = hp.getBoundingClientRect(prevNodeEl).toJSON();
-              const indentSize = indent * (prevNode!.level - 1);
+              const indentSize = indent * (prevNode.level - 1);
               if (!rtl) {
                 r.x += indentSize;
               } else {
                 r.width -= indentSize;
                 r.right -= indentSize;
               }
-              return r as DOMRect;
+              return r;
             }
           }).action;
           const onPrevMiddle = hp.cacheFunction(() => {
@@ -531,7 +529,7 @@ const cpt = {
               : movePoint.x < prevBCR().x + prevBCR().width - indent
           ).action;
           //
-          let targetLevel: number;
+          let targetLevel;
           if (atTop()) {
             targetLevel = 1;
             prevNode = null;
@@ -540,11 +538,11 @@ const cpt = {
           } else if (prevX_minusMovePointX() > 0) {
             // at left
             targetLevel =
-              prevNode!.level - Math.ceil(prevX_minusMovePointX() / indent);
+              prevNode.level - Math.ceil(prevX_minusMovePointX() / indent);
           } else if (atPrevIndentRight()) {
-            targetLevel = prevNode!.level + 1;
+            targetLevel = prevNode.level + 1;
           } else {
-            targetLevel = prevNode!.level;
+            targetLevel = prevNode.level;
           }
 
           if (nextNode && targetLevel < nextNode.level) {
@@ -554,14 +552,15 @@ const cpt = {
           const findDroppablePosition = async () => {
             let parent, prevSibling;
             let cancelled = false;
-            let _dragOpenLastNode: typeof dragOpenLastNode = null; // for reset dragOpenLastNode
-            const isOpen = async (stat: Stat<any>) => {
+            let _dragOpenLastNode,
+              dragOpenLastNode = null; // for reset dragOpenLastNode
+            const isOpen = async (stat) => {
               if (stat.open) {
                 return true;
-              } else if (targetTree!.dragOpen) {
-                if (!targetTree!.dragOpenDelay) {
-                  if (targetTree!.beforeDragOpen) {
-                    await targetTree!.beforeDragOpen(stat);
+              } else if (targetTree.dragOpen) {
+                if (!targetTree.dragOpenDelay) {
+                  if (targetTree.beforeDragOpen) {
+                    await targetTree.beforeDragOpen(stat);
                   }
                   stat.open = true;
                   return true;
@@ -570,7 +569,7 @@ const cpt = {
                   if (dragOpenLastNode === stat) {
                     cancelled = true;
                   } else {
-                    let wait = hp.promisePin<boolean, any>();
+                    let wait = hp.promisePin();
                     dragOpenLastNode = stat;
                     const localNode = stat;
                     setTimeout(async () => {
@@ -578,8 +577,8 @@ const cpt = {
                         cancelled = true;
                         wait.resolve(true);
                       } else {
-                        if (targetTree!.beforeDragOpen) {
-                          await targetTree!.beforeDragOpen(stat);
+                        if (targetTree.beforeDragOpen) {
+                          await targetTree.beforeDragOpen(stat);
                         }
                         if (localNode !== dragOpenLastNode) {
                           cancelled = true;
@@ -590,7 +589,7 @@ const cpt = {
                           wait.resolve(true);
                         }
                       }
-                    }, targetTree!.dragOpenDelay);
+                    }, targetTree.dragOpenDelay);
                     return await wait.promise;
                   }
                 }
@@ -601,8 +600,8 @@ const cpt = {
             const tryPrepend = async () => {
               // prevNode must existing
               if (
-                targetTree!.isDroppable(prevNode) &&
-                (await isOpen(prevNode!))
+                targetTree.isDroppable(prevNode) &&
+                (await isOpen(prevNode))
               ) {
                 if (cancelled) {
                   return;
@@ -615,15 +614,15 @@ const cpt = {
             };
             const tryAfter = (minLevel = targetLevel) => {
               // prevNode must existing
-              let t: Stat<any> | null = prevNode!;
-              let t3: (Stat<any> | null)[] = [];
+              let t = prevNode;
+              let t3 = [];
               while (t && t.level >= minLevel) {
                 t = t.parent || null; // null mean root
                 t3.unshift(t);
               }
               let i = 0;
               for (const node of t3) {
-                if (targetTree!.isDroppable(node)) {
+                if (targetTree.isDroppable(node)) {
                   parent = node;
                   prevSibling = t3[i + 1] || prevNode;
                   return true;
@@ -634,7 +633,7 @@ const cpt = {
             };
             closestNode = prevNode || null; // assign to public variable
             if (!prevNode) {
-              if (targetTree!.isDroppable(null)) {
+              if (targetTree.isDroppable(null)) {
                 parent = null;
               }
             } else if (targetLevel > prevNode.level) {
@@ -650,9 +649,9 @@ const cpt = {
             const success = Boolean(!cancelled && (parent || parent === null));
             const getIndex = () =>
               prevSibling
-                ? (parent ? parent.children : targetTree!.stats)
-                  .filter((v) => v.data !== targetTree!.placeholderData)
-                  .indexOf(prevSibling) + 1
+                ? (parent ? parent.children : targetTree.stats)
+                    .filter((v) => v.data !== targetTree.placeholderData)
+                    .indexOf(prevSibling) + 1
                 : 0;
             return {
               cancelled,
@@ -670,16 +669,16 @@ const cpt = {
               return;
             }
             // check max level
-            if (targetTree!.maxLevel != null && targetTree!.maxLevel > 0) {
+            if (targetTree.maxLevel != null && targetTree.maxLevel > 0) {
               let dragNodeWithChildLevel = 1;
               if (startTree) {
-                const dragNode = startTree.dragNode!;
+                const dragNode = startTree.dragNode;
                 let childMaxLevel = 0;
                 hp.walkTreeData(
                   dragNode,
                   (node) => {
-                    if (node!.level > childMaxLevel) {
-                      childMaxLevel = node!.level;
+                    if (node.level > childMaxLevel) {
+                      childMaxLevel = node.level;
                     }
                   },
                   {
@@ -690,7 +689,7 @@ const cpt = {
               }
               const willLevel =
                 dragNodeWithChildLevel + (dp.parent ? dp.parent.level : 0);
-              if (willLevel > targetTree!.maxLevel) {
+              if (willLevel > targetTree.maxLevel) {
                 setDroppable(false);
                 return;
               }
@@ -710,26 +709,24 @@ const cpt = {
         if (!targetTree) {
           return;
         }
-        const dragNode = startTree?.dragNode!;
-        let externalData: any;
+        const dragNode = startTree?.dragNode;
+        let externalData;
         let dragChanged = (() => {
           let changed = true;
-          if (!targetTree!.has(targetTree!.placeholderData)) {
+          if (!targetTree.has(targetTree.placeholderData)) {
             changed = false;
           } else if (external) {
             externalData = this.externalDataHandler?.(event);
             changed = externalData != null;
-          } else if (!startTree!.dragCopy) {
-            const placeholder = targetTree!.getStat(
-              targetTree!.placeholderData
-            );
+          } else if (!startTree.dragCopy) {
+            const placeholder = targetTree.getStat(targetTree.placeholderData);
             if (
               startTree === targetTree &&
-              placeholder.parent === dragNode!.parent
+              placeholder.parent === dragNode.parent
             ) {
               if (
                 (hp.findTreeData(dragNode, (node) => node === placeholder),
-                  { childrenKey: CHILDREN })
+                { childrenKey: CHILDREN })
               ) {
               } else {
                 const siblings = this.processor.getSiblings(placeholder);
@@ -745,8 +742,8 @@ const cpt = {
           return changed;
         })();
         if (dragChanged) {
-          const placeholder = targetTree!.getStat(targetTree!.placeholderData);
-          const siblings = targetTree!.getSiblings(placeholder);
+          const placeholder = targetTree.getStat(targetTree.placeholderData);
+          const siblings = targetTree.getSiblings(placeholder);
           targetInfo = {
             tree: targetTree,
             dragNode,
@@ -776,32 +773,32 @@ const cpt = {
               !startTree._eachDroppable()
             ) {
               startTree.batchUpdate(() => {
-                startTree!.remove(dragNode);
-                startTree!.updateCheck();
+                startTree.remove(dragNode);
+                startTree.updateCheck();
               });
             }
-            targetTree!.batchUpdate(() => {
-              let newDragNode = startTree?.dragNode!;
-              let newData: any;
+            targetTree.batchUpdate(() => {
+              let newDragNode = startTree?.dragNode;
+              let newData;
               if (externalData) {
                 newData = externalData;
-              } else if (startTree!._eachDroppable()) {
-                newData = hp.cloneTreeData(startTree!.dragNode!.data, {
-                  childrenKey: startTree!.childrenKey,
+              } else if (startTree._eachDroppable()) {
+                newData = hp.cloneTreeData(startTree.dragNode.data, {
+                  childrenKey: startTree.childrenKey,
                 });
-                if (startTree!.dragCopyDataHandler) {
-                  newData = startTree!.dragCopyDataHandler(newData);
+                if (startTree.dragCopyDataHandler) {
+                  newData = startTree.dragCopyDataHandler(newData);
                 }
               }
               if (newData) {
-                targetTree!.add(newData);
-                newDragNode = targetTree!.getStat(newData);
+                targetTree.add(newData);
+                newDragNode = targetTree.getStat(newData);
               }
-              targetTree!.move(newDragNode, targetInfo.parent, targetIndex);
-              targetTree!.updateCheck();
+              targetTree.move(newDragNode, targetInfo.parent, targetIndex);
+              targetTree.updateCheck();
             });
           }
-          targetTree!.$emit("after-drop");
+          targetTree.$emit("after-drop");
           if (dragChanged) {
             if (startTree) {
               // don't emit change when dragCopy
@@ -810,7 +807,7 @@ const cpt = {
               }
             }
             if (targetTree !== startTree) {
-              targetTree!.$emit("change");
+              targetTree.$emit("change");
             }
           }
         })();
@@ -834,5 +831,5 @@ const cpt = {
   unmounted() {
     this.treeDraggableInstance?.destroy();
   },
-}
+};
 export default cpt;
