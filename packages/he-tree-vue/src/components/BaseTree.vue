@@ -41,26 +41,26 @@
 <script lang="ts">
 // 如果遇到滚动不流畅的情况，不用处理，因为Dev tool造成的。
 // If the scrolling is not smooth, do not deal with it, because it is caused by the Dev tool.
-import { PropType, defineComponent, isVue2, isVue3, reactive } from "vue-demi";
 import * as hp from "helper-js";
 import VirtualList from "./VirtualList/VirtualList.vue";
 // import VirtualList from "../virtual-list";
 import TreeNode from "./TreeNode.vue";
 import { vueMakeTreeProcessor, Stat, TreeProcessor } from "./TreeProcessorVue";
-
-const cpt = defineComponent({
+// console.log('isVue2', isVue2, isVue3)
+const isVue2 = false, isVue3 = true
+const cpt = {
   components: { VirtualList, TreeNode },
   props: {
     // for vue2
-    value: { required: isVue2, type: Array as PropType<any[]> },
+    value: { required: isVue2, type: Array },
     // for vue3
-    modelValue: { required: isVue3, type: Array as PropType<any[]> },
+    modelValue: { required: isVue3, type: Array },
     updateBehavior: {
-      type: String as PropType<"modify" | "new" | "disabled">,
+      type: String,
       default: "modify",
     },
     processor: {
-      type: Object as PropType<TreeProcessor>,
+      type: Object,
       default: () =>
         vueMakeTreeProcessor([], {
           noInitialization: true,
@@ -87,7 +87,7 @@ const cpt = defineComponent({
      * Open all nodes by default. 默认打开所有节点.
      */
     defaultOpen: { type: Boolean, default: true },
-    statHandler: { type: Function as PropType<(stat: Stat<any>) => Stat<any>> },
+    statHandler: { type: Function },
     /**
      * From right to left. 由右向左显示.
      */
@@ -102,9 +102,7 @@ const cpt = defineComponent({
     table: { type: Boolean, default: false },
     watermark: { type: Boolean, default: false },
     nodeKey: {
-      type: [String, Function] as PropType<
-        "index" | ((stat: Stat<any>, index: number) => any)
-      >,
+      type: [String, Function],
       default: "index",
     },
     treeLine: { type: Boolean, default: false },
@@ -380,7 +378,7 @@ const cpt = defineComponent({
       }
     }
   },
-});
+}
 
 export default cpt;
 export type BaseTreeType = InstanceType<typeof cpt>;
@@ -403,7 +401,7 @@ function processorMethodProxyWithBatchUpdate(name: string) {
 function reactiveFirstArg(func: any) {
   return function (arg1, ...args) {
     if (arg1) {
-      arg1 = reactive(arg1);
+      arg1 = arg1
     }
     // @ts-ignore
     return func.call(this, arg1, ...args);
