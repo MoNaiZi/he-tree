@@ -1,8 +1,4 @@
-// import { makeTreeProcessor } from "@he-tree/tree-utils";
-// export * from "@he-tree/tree-utils";
-// import { reactive } from "vue-demi";
-
-import { reactive } from "vue";
+import { reactive } from "@vue/reactivity";
 import { makeTreeProcessor } from "./tree-utils";
 
 export function vueMakeTreeProcessor(data, options) {
@@ -22,8 +18,6 @@ export function vueMakeTreeProcessor(data, options) {
     },
   };
   const res = makeTreeProcessor(data, opt);
-  console.log("vueMakeTreeProcessor", res);
-
   return res;
 }
 function filter(func, input) {
