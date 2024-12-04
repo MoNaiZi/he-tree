@@ -148,7 +148,6 @@ const cpt = {
       return items.filter((stat) => isVisible(stat));
     },
     rootChildren() {
-      console.log('rootChildren')
       return this.stats;
     },
   },

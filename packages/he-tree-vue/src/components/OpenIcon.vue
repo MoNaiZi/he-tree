@@ -7,14 +7,12 @@
   </a>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue-demi";
-
-export default defineComponent({
+<script>
+export default {
   props: {
     open: { type: Boolean },
   },
-})
+}
 </script>
 
 <style>
