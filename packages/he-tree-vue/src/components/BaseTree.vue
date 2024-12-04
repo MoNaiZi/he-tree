@@ -38,14 +38,14 @@
   </VirtualList>
 </template>
 
-<script lang="ts">
+<script>
 // 如果遇到滚动不流畅的情况，不用处理，因为Dev tool造成的。
 // If the scrolling is not smooth, do not deal with it, because it is caused by the Dev tool.
 import * as hp from "helper-js";
 import VirtualList from "./VirtualList/VirtualList.vue";
 // import VirtualList from "../virtual-list";
 import TreeNode from "./TreeNode.vue";
-import { vueMakeTreeProcessor, Stat, TreeProcessor } from "./TreeProcessorVue";
+import { vueMakeTreeProcessor } from "./TreeProcessorVue";
 // console.log('isVue2', isVue2, isVue3)
 const isVue2 = false, isVue3 = true
 const cpt = {
@@ -132,16 +132,6 @@ const cpt = {
       batchUpdateWaiting: false,
       self: this,
       _ignoreValueChangeOnce: false,
-    } as {
-      stats: Exclude<TreeProcessor["stats"], null>;
-      statsFlat: Exclude<TreeProcessor["statsFlat"], null>;
-      dragNode: Stat<any> | null;
-      dragOvering: boolean;
-      placeholderData: {};
-      placeholderColspan: number;
-      batchUpdateWaiting: boolean;
-      self: any;
-      _ignoreValueChangeOnce: boolean;
     };
   },
   computed: {
@@ -162,7 +152,7 @@ const cpt = {
     },
   },
   methods: {
-    _emitValue(value: any[]) {
+    _emitValue(value) {
       // @ts-ignore
       this.$emit(isVue2 ? "input" : "update:modelValue", value);
     },
@@ -170,7 +160,7 @@ const cpt = {
      * private method
      * @param value
      */
-    _updateValue(value: any[]) {
+    _updateValue(value) {
       if (this.updateBehavior === "disabled") {
         return false;
       }
@@ -183,31 +173,31 @@ const cpt = {
     },
     getStat: reactiveFirstArg(
       processorMethodProxy("getStat")
-    ) as TreeProcessor["getStat"],
-    has: reactiveFirstArg(processorMethodProxy("has")) as TreeProcessor["has"],
+    ),
+    has: reactiveFirstArg(processorMethodProxy("has")),
     updateCheck: processorMethodProxy(
       "updateCheck"
-    ) as TreeProcessor["updateCheck"],
+    ),
     getChecked: processorMethodProxy(
       "getChecked"
-    ) as TreeProcessor["getChecked"],
+    ),
     getUnchecked: processorMethodProxy(
       "getUnchecked"
-    ) as TreeProcessor["getUnchecked"],
-    openAll: processorMethodProxy("openAll") as TreeProcessor["openAll"],
-    closeAll: processorMethodProxy("closeAll") as TreeProcessor["closeAll"],
+    ),
+    openAll: processorMethodProxy("openAll"),
+    closeAll: processorMethodProxy("closeAll"),
     openNodeAndParents: processorMethodProxy(
       "openNodeAndParents"
-    ) as TreeProcessor["openNodeAndParents"],
-    isVisible: processorMethodProxy("isVisible") as TreeProcessor["isVisible"],
-    move: processorMethodProxyWithBatchUpdate("move") as TreeProcessor["move"],
+    ),
+    isVisible: processorMethodProxy("isVisible"),
+    move: processorMethodProxyWithBatchUpdate("move"),
     add: reactiveFirstArg(
       processorMethodProxyWithBatchUpdate("add")
-    ) as TreeProcessor["add"],
+    ),
     addMulti(
-      dataArr: any[],
-      parent?: Stat<any> | null,
-      startIndex?: number | null
+      dataArr,
+      parent,
+      startIndex
     ) {
       this.batchUpdate(() => {
         let index = startIndex;
@@ -219,8 +209,8 @@ const cpt = {
         }
       });
     },
-    remove: processorMethodProxy("remove") as TreeProcessor["remove"],
-    removeMulti(dataArr: any[]) {
+    remove: processorMethodProxy("remove"),
+    removeMulti(dataArr) {
       let cloned = [...dataArr];
       this.batchUpdate(() => {
         for (const data of cloned) {
@@ -230,19 +220,16 @@ const cpt = {
     },
     iterateParent: processorMethodProxy(
       "iterateParent"
-    ) as TreeProcessor["iterateParent"],
+    ),
     getSiblings: processorMethodProxy(
       "getSiblings"
-    ) as TreeProcessor["getSiblings"],
-    getData: processorMethodProxy("getData") as hp.ReplaceReturnType<
-      TreeProcessor["getData"],
-      any[]
-    >,
+    ),
+    getData: processorMethodProxy("getData"),
     getRootEl() {
       // @ts-ignore
-      return this.$refs.vtlist.$el as HTMLElement;
+      return this.$refs.vtlist.$el;
     },
-    batchUpdate(task: () => any | Promise<any>) {
+    batchUpdate(task) {
       const r = this.ignoreUpdate(task);
       if (!this.batchUpdateWaiting) {
         this._updateValue(
@@ -251,7 +238,7 @@ const cpt = {
       }
       return r;
     },
-    ignoreUpdate(task: () => any | Promise<any>) {
+    ignoreUpdate(task) {
       const old = this.batchUpdateWaiting;
       this.batchUpdateWaiting = true;
       const r = task();
@@ -262,10 +249,10 @@ const cpt = {
   watch: {
     processor: {
       immediate: true,
-      handler(processor: typeof this.processor) {
+      handler(processor) {
         if (processor) {
           // hook
-          const getNodeDataChildren = (nodeData: any): any[] => {
+          const getNodeDataChildren = (nodeData) => {
             if (!nodeData) {
               return this.valueComputed;
             } else {
@@ -281,7 +268,7 @@ const cpt = {
               if (stat.data === this.placeholderData) {
                 return stat;
               }
-              return this.statHandler!(stat);
+              return this.statHandler(stat);
             }
             : null;
           processor.afterSetStat = (stat, parent, index) => {
@@ -334,8 +321,8 @@ const cpt = {
           processor.init();
           processor.updateCheck();
         }
-        this.stats = processor.stats!;
-        this.statsFlat = processor.statsFlat!;
+        this.stats = processor.stats;
+        this.statsFlat = processor.statsFlat;
         if (processor.data !== this.valueComputed) {
           this._updateValue(processor.data);
         }
@@ -351,8 +338,8 @@ const cpt = {
           const { processor } = this;
           processor.data = value;
           processor.init();
-          this.stats = processor.stats!;
-          this.statsFlat = processor.statsFlat!;
+          this.stats = processor.stats;
+          this.statsFlat = processor.statsFlat;
         }
       },
     },
@@ -381,15 +368,14 @@ const cpt = {
 }
 
 export default cpt;
-export type BaseTreeType = InstanceType<typeof cpt>;
 
-function processorMethodProxy(name: string) {
+function processorMethodProxy(name) {
   return function (...args) {
     // @ts-ignore
     return this.processor[name](...args);
   };
 }
-function processorMethodProxyWithBatchUpdate(name: string) {
+function processorMethodProxyWithBatchUpdate(name) {
   return function (...args) {
     // @ts-ignore
     return this.batchUpdate(() => {
@@ -398,7 +384,7 @@ function processorMethodProxyWithBatchUpdate(name: string) {
     });
   };
 }
-function reactiveFirstArg(func: any) {
+function reactiveFirstArg(func) {
   return function (arg1, ...args) {
     if (arg1) {
       arg1 = arg1
