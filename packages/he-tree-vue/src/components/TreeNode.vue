@@ -13,60 +13,23 @@
   </tr>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, watch } from "vue-demi";
-
-let justToggleOpen = false
-const afterToggleOpen = () => {
-  justToggleOpen = true
-  setTimeout(() => {
-    justToggleOpen = false
-  }, 100)
-}
-
-const cpt = defineComponent({
-  // components: {},
+<script>
+export default {
   props: ["stat", "rtl", "btt", "indent", "table", "treeLine", "treeLineOffset", "processor"],
   emits: ["open", "close", "check"],
-  setup(props, { emit }) {
-    const indentStyle = computed(() => {
+  data() {
+    return {
+      justToggleOpen: false,
+    };
+  },
+  computed: {
+    indentStyle() {
       return {
-        [!props.rtl ? "paddingLeft" : "paddingRight"]:
-          props.indent * (props.stat.level - 1) + "px",
+        [!this.rtl ? "paddingLeft" : "paddingRight"]: this.indent * (this.stat.level - 1) + "px",
       };
-    });
-    // watch checked
-    watch(
-      () => props.stat.checked,
-      (checked) => {
-        // fix issue: https://github.com/phphe/he-tree/issues/98
-        // when open/close above node, the after nodes' states 'checked' and 'open' will be updated. It should be caused by Vue's key. We don't use Vue's key prop.
-        if (justToggleOpen) {
-          return
-        }
-        if (props.processor.afterOneCheckChanged(props.stat)) {
-          emit("check", props.stat);
-        }
-      }
-    );
-    // watch open
-    watch(
-      () => props.stat.open,
-      (open) => {
-        if (justToggleOpen) {
-          return
-        }
-        if (open) {
-          emit("open", props.stat);
-        } else {
-          emit("close", props.stat);
-        }
-        afterToggleOpen()
-      }
-    );
-    // tree lines
-    const vLines = computed(() => {
-      const lines: { style: object }[] = [];
+    },
+    vLines() {
+      const lines = [];
       const hasNextVisibleNode = (stat) => {
         if (stat.parent) {
           let i = stat.parent?.children.indexOf(stat);
@@ -84,11 +47,11 @@ const cpt = defineComponent({
         }
         return false
       }
-      const leftOrRight = props.rtl ? 'right' : 'left'
-      const bottomOrTop = props.btt ? 'top' : 'bottom'
-      let current = props.stat
+      const leftOrRight = this.rtl ? 'right' : 'left'
+      const bottomOrTop = this.btt ? 'top' : 'bottom'
+      let current = this.stat
       while (current) {
-        let left = (current.level - 2) * props.indent + props.treeLineOffset
+        let left = (current.level - 2) * this.indent + this.treeLineOffset
         const hasNext = hasNextVisibleNode(current)
         const addLine = () => {
           lines.push({
@@ -98,7 +61,7 @@ const cpt = defineComponent({
             }
           })
         }
-        if (current === props.stat) {
+        if (current === this.stat) {
           if (current.level > 1) {
             addLine()
           }
@@ -108,28 +71,47 @@ const cpt = defineComponent({
         current = current.parent
       }
       return lines
-    })
-    const hLineStyle = computed(() => {
-      let left = (props.stat.level - 2) * props.indent + props.treeLineOffset
-      const leftOrRight = props.rtl ? 'right' : 'left'
+    },
+    hLineStyle() {
+      let left = (this.stat.level - 2) * this.indent + this.treeLineOffset
+      const leftOrRight = this.rtl ? 'right' : 'left'
       return {
         [leftOrRight]: left + 'px',
       }
-    })
-    return { indentStyle, vLines, hLineStyle, }
+    }
   },
-  // data() {
-  //   return {}
-  // },
-  // computed: {},
-  // watch: {},
-  // methods: {},
-  // created() {},
-  // mounted() {}
-});
-export default cpt;
-export type TreeNodeType = InstanceType<typeof cpt>;
+  watch: {
+    'stat.checked': function (checked) {
+      if (this.justToggleOpen) {
+        return
+      }
+      if (this.processor.afterOneCheckChanged(this.stat)) {
+        this.$emit("check", this.stat);
+      }
+    },
+    'stat.open': function (open) {
+      if (this.justToggleOpen) {
+        return
+      }
+      if (open) {
+        this.$emit("open", this.stat);
+      } else {
+        this.$emit("close", this.stat);
+      }
+      this.afterToggleOpen()
+    }
+  },
+  methods: {
+    afterToggleOpen() {
+      this.justToggleOpen = true
+      setTimeout(() => {
+        this.justToggleOpen = false
+      }, 100)
+    }
+  }
+};
 </script>
+
 
 <style>
 /* tree line start */
