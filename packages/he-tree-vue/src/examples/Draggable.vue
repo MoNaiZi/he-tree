@@ -106,34 +106,34 @@ const data = ref([
   ...hp.cloneObject(data0),
 ]);
 function statHandler(stat: any) {
-  if (["Vue", "React"].includes(stat.data.text)) {
-    stat.data.text += " undroppable";
-  }
-  if (["Nuxt"].includes(stat.data.text)) {
-    stat.data.text += " droppable";
-  }
-  if (["Movie"].includes(stat.data.text)) {
-    stat.data.text += " undraggable";
-  }
-  if (stat.data.text?.includes("undroppable")) {
-    stat.droppable = false;
-  }
-  if (stat.data.text?.includes("undraggable")) {
-    stat.draggable = false;
-  }
-  if (stat.data.text?.includes(" droppable")) {
-    stat.droppable = true;
-  }
+  // if (["Vue", "React"].includes(stat.data.text)) {
+  //   stat.data.text += " undroppable";
+  // }
+  // if (["Nuxt"].includes(stat.data.text)) {
+  //   stat.data.text += " droppable";
+  // }
+  // if (["Movie"].includes(stat.data.text)) {
+  //   stat.data.text += " undraggable";
+  // }
+  // if (stat.data.text?.includes("undroppable")) {
+  //   stat.droppable = false;
+  // }
+  // if (stat.data.text?.includes("undraggable")) {
+  //   stat.draggable = false;
+  // }
+  // if (stat.data.text?.includes(" droppable")) {
+  //   stat.droppable = true;
+  // }
   return stat;
 }
 
 const enableEachDraggable = ref(false);
 const eachDraggable: PropDraggable = (stat) => {
-  return enableEachDraggable.value ? stat.level !== 1 : null;
+  // return enableEachDraggable.value ? stat.level !== 1 : null;
 };
 const enableEachDroppable = ref(false);
 const eachDroppable: PropDraggable = (stat) => {
-  return enableEachDroppable.value ? stat.level === 1 : null;
+  // return enableEachDroppable.value ? stat.level === 1 : null;
 };
 const rootDroppable = ref(true);
 const disableDrag = ref(false);
@@ -165,7 +165,7 @@ const customDragImage = (e: DragEvent) => {
   var div = document.createElement("div");
   div.style.backgroundColor = "red";
   div.style.color = "white";
-  div.innerText = "This is a div with blue background and white text.";
+  // div.innerText = "This is a div with blue background and white text.";
   document.body.appendChild(div);
   e.dataTransfer.setDragImage(div, 10, 10)
 

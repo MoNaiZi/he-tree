@@ -15,16 +15,16 @@ import Other3 from "./examples/Other3.vue";
   <div class="app">
     <h1>he-tree Examples</h1>
     <div class="examples">
-      <Base />
+      <!-- <Base />
       <WithOpenAndCheckBox />
-      <Virtualization />
+      <Virtualization /> -->
       <Draggable />
-      <CrossDrag />
+      <!-- <CrossDrag />
       <TableTree />
       <MaterialDesign />
       <Other1 />
       <Other2 />
-      <Other3 />
+      <Other3 /> -->
     </div>
   </div>
 </template>

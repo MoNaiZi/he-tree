@@ -1,12 +1,7 @@
 <template>
   <div>
     <h3>Cross(pro)</h3>
-    <DraggableTree
-      v-model="data"
-      ref="tree"
-      class="cross-drag-tree"
-      :defaultOpen="false"
-    >
+    <DraggableTree v-model="data" ref="tree" class="cross-drag-tree" :defaultOpen="false">
       <template #default="{ node, stat }">
         <span v-if="stat.children.length" @click="stat.open = !stat.open">
           {{ stat.open ? "-" : "+" }}
@@ -18,13 +13,8 @@
     </DraggableTree>
     <hr />
     <h3>Empty Tree</h3>
-    <DraggableTree
-      v-model="dataEmpty"
-      ref="tree2"
-      class="cross-drag-tree-empty"
-      :defaultOpen="false"
-      style="border: 1px solid #ccc; padding: 10px"
-    >
+    <DraggableTree v-model="dataEmpty" ref="tree2" class="cross-drag-tree-empty" :defaultOpen="false"
+      style="border: 1px solid #ccc; padding: 10px">
       <template #default="{ node, stat }">
         <span v-if="stat.children.length" @click="stat.open = !stat.open">
           {{ stat.open ? "-" : "+" }}
@@ -49,7 +39,6 @@
 import DraggableTree, {
   PropDraggable,
   BeforeDragOpen,
-  DraggableTreeType,
 } from "../components/DraggableTree";
 import { pro } from "../index";
 import data0 from "./data.json";
@@ -60,7 +49,7 @@ const dataEmpty = ref([]);
 const data2 = ref([...hp.cloneObject(data0)]);
 onMounted(() => {
   const vm = getCurrentInstance()!;
-  const tree3 = vm.refs.tree3 as DraggableTreeType;
+  const tree3 = vm.refs.tree3;
   const testAdd = { text: "test" };
   tree3.add(testAdd);
   tree3.getStat(reactive(testAdd));
@@ -72,6 +61,7 @@ onMounted(() => {
   background: #f6e7cd;
   border: 1px dashed #ffbf00;
 }
+
 .cross-drag-tree-empty .drag-placeholder {
   background: #b6ffe7;
   border: 1px dashed #00ff40;

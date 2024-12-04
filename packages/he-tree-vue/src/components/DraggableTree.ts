@@ -1,27 +1,19 @@
-import { PropType, defineComponent } from "vue-demi";
 import BaseTree from "./BaseTree.vue";
 import { Stat, CHILDREN } from "@he-tree/tree-utils";
 import { context as ctx, Point } from "@he-tree/dnd-utils";
 import { extendedDND, ExtendedDND } from "@he-tree/dnd-utils";
 import * as hp from "helper-js";
-import { Nullable } from "helper-js";
 
-export type PropDraggable = (stat: Stat<any>) => boolean | null;
-export type PropDroppable = (stat: Stat<any>) => boolean | null;
-export type RootDroppable = () => boolean;
-export type BeforeDragOpen = (stat: Stat<any>) => void | Promise<void>;
-export type DragCopyDataHandler<T> = (nodeData: T) => T;
-export type OnExternalDragOver = (event: DragEvent) => boolean;
-export type ExternalDataHandler = (event: DragEvent) => any;
-let startTree: DraggableTreeType | null = null;
-let targetTree: DraggableTreeType | null = null;
-let startInfo: StartInfo;
-let targetInfo: TargetInfo;
-let dragOpenLastNode: Nullable<Stat<any>>;
-let startMovePoint: Point;
-let startMouse: Point;
-let dragNode: Nullable<Stat<any>>;
-let closestNode: Nullable<Stat<any>>;
+
+let startTree = null;
+let targetTree = null;
+let startInfo = null;
+let targetInfo = null;
+let dragOpenLastNode = null;
+let startMovePoint = null;
+let startMouse = null;
+let dragNode = null;
+let closestNode = null;
 
 export const context = {
   get startInfo() {
@@ -44,20 +36,20 @@ export const context = {
   },
 };
 
-const cpt = defineComponent({
+const cpt = {
   extends: BaseTree,
   props: {
-    triggerClass: { type: [String, Array] as PropType<string | string[]> },
+    triggerClass: { type: [String, Array] },
     disableDrag: Boolean,
     disableDrop: Boolean,
     eachDraggable: {
-      type: Function as PropType<PropDraggable>,
+      type: Function,
     },
     eachDroppable: {
-      type: Function as PropType<PropDroppable>,
+      type: Function,
     },
     rootDroppable: {
-      type: [Boolean, Function] as PropType<boolean | RootDroppable>,
+      type: [Boolean, Function],
       default: true,
     },
     /**
@@ -68,11 +60,9 @@ const cpt = defineComponent({
     /**
      * e.g.: you can load children by ajax in the hook
      */
-    beforeDragOpen: { type: Function as PropType<BeforeDragOpen> },
+    beforeDragOpen: { type: Function },
     resolveStartMovePoint: {
-      type: [String, Function] as PropType<
-        "mouse" | "default" | ((dragElement: HTMLElement) => Point)
-      >,
+      type: [String, Function],
     },
     /**
      * if remove placeholder when drag leave a tree
@@ -90,17 +80,17 @@ const cpt = defineComponent({
      * return new data when drag copy
      */
     dragCopyDataHandler: {
-      type: Function as PropType<DragCopyDataHandler<any>>,
+      type: Function,
     },
     onExternalDragOver: {
-      type: Function as PropType<OnExternalDragOver>,
+      type: Function,
     },
     externalDataHandler: {
-      type: Function as PropType<ExternalDataHandler>,
+      type: Function,
     },
     // hook of event HTML5 Drag and Drop API's dragstart event
     ondragstart: {
-      type: Function as PropType<(event: DragEvent) => void>,
+      type: Function,
     },
   },
   data() {
@@ -265,6 +255,7 @@ const cpt = defineComponent({
         });
       }
     };
+    console.log('rootEl', rootEl)
     this.treeDraggableInstance = extendedDND(rootEl, {
       beforeDragStart: (event) => {
         // triggerElement trigger click
@@ -425,9 +416,9 @@ const cpt = defineComponent({
           targetTree = this;
           const movePoint = startMovePoint
             ? {
-                x: startMovePoint.x + (mouse.x - startMouse.x),
-                y: startMovePoint.y + (mouse.y - startMouse.y),
-              }
+              x: startMovePoint.x + (mouse.x - startMouse.x),
+              y: startMovePoint.y + (mouse.y - startMouse.y),
+            }
             : { ...mouse };
           const { btt, rtl } = targetTree;
           // if undroppable, return
@@ -660,8 +651,8 @@ const cpt = defineComponent({
             const getIndex = () =>
               prevSibling
                 ? (parent ? parent.children : targetTree!.stats)
-                    .filter((v) => v.data !== targetTree!.placeholderData)
-                    .indexOf(prevSibling) + 1
+                  .filter((v) => v.data !== targetTree!.placeholderData)
+                  .indexOf(prevSibling) + 1
                 : 0;
             return {
               cancelled,
@@ -738,7 +729,7 @@ const cpt = defineComponent({
             ) {
               if (
                 (hp.findTreeData(dragNode, (node) => node === placeholder),
-                { childrenKey: CHILDREN })
+                  { childrenKey: CHILDREN })
               ) {
               } else {
                 const siblings = this.processor.getSiblings(placeholder);
@@ -843,14 +834,5 @@ const cpt = defineComponent({
   unmounted() {
     this.treeDraggableInstance?.destroy();
   },
-});
-export default cpt;
-export type DraggableTreeType = InstanceType<typeof cpt>;
-export interface StartInfo {
-  tree: DraggableTreeType;
-  dragNode: Stat<any>;
-  parent: Stat<any> | null;
-  siblings: Stat<any>[];
-  indexBeforeDrop: number;
 }
-export type TargetInfo = StartInfo;
+export default cpt;
