@@ -13,19 +13,19 @@ import Other3 from "./examples/Other3.vue";
 
 <template>
   <div class="app">
-    <h1>he-tree Examples</h1>
-    <div class="examples">
-      <!-- <Base />
+    <!-- <h1>he-tree Examples</h1> -->
+    <!-- <div class="examples"> -->
+    <!-- <Base />
       <WithOpenAndCheckBox />
       <Virtualization /> -->
-      <Draggable />
-      <!-- <CrossDrag />
+    <Draggable />
+    <!-- <CrossDrag />
       <TableTree />
       <MaterialDesign />
       <Other1 />
       <Other2 />
       <Other3 /> -->
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 

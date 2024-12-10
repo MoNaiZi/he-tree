@@ -29,12 +29,13 @@ export function makeTreeProcessor(data, opt = {}) {
             children: [],
             level: path.length,
           });
-          //   console.log("path", path);
+
           this._statsMap.set(nodeData, stat);
           td.set(path, stat);
         },
         { childrenKey }
       );
+
       const statsFlat = [];
       td.walk((stat) => {
         statsFlat.push(stat);
@@ -45,6 +46,7 @@ export function makeTreeProcessor(data, opt = {}) {
     },
     getStat(nodeData) {
       let r = this._statsMap.get(nodeData);
+
       if (!r) {
         throw new StatNotFoundError(`Stat not found`);
       }
@@ -198,6 +200,7 @@ export function makeTreeProcessor(data, opt = {}) {
       if (index == null) {
         index = siblings.length;
       }
+
       const stat = this.statHandler({
         ...statDefault(),
         open: Boolean(this.defaultOpen),
@@ -206,6 +209,7 @@ export function makeTreeProcessor(data, opt = {}) {
         children: [],
         level: parent ? parent.level + 1 : 1,
       });
+
       this._setPosition(stat, parent || null, index);
       const children = nodeData[this.childrenKey];
       if (children) {
@@ -240,6 +244,7 @@ export function makeTreeProcessor(data, opt = {}) {
       stat.level = parent ? parent.level + 1 : 1;
       const flatIndex = this._calcFlatIndex(parent, index);
       const stats = this._flat(stat);
+
       this.statsFlat.splice(flatIndex, 0, ...stats);
       for (const stat of stats) {
         if (!this._statsMap.has(stat.data)) {
@@ -255,6 +260,7 @@ export function makeTreeProcessor(data, opt = {}) {
         },
         { childrenKey: CHILDREN }
       );
+
       this.afterSetStat(stat, parent, index);
     },
     *iterateParent(stat, opt = { withSelf: false }) {

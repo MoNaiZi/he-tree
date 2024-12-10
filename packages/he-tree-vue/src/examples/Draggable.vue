@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Draggable</h3>
+    <!-- <h3>Draggable</h3> -->
     <hr />
     <h4>Props</h4>
     <label>
@@ -91,8 +91,7 @@
 <script setup lang="ts">
 import DraggableTree, {
   PropDraggable,
-  BeforeDragOpen,
-  context,
+  // context,
 } from "../components/DraggableTree";
 
 import Refresh from "./Refresh.vue";
@@ -101,11 +100,8 @@ import { reactive, ref } from "vue";
 import * as hp from "helper-js";
 const data = ref([
   ...hp.cloneObject(data0),
-  ...hp.cloneObject(data0),
-  ...hp.cloneObject(data0),
-  ...hp.cloneObject(data0),
-  ...hp.cloneObject(data0),
 ]);
+console.log('data', data)
 function statHandler(stat: any) {
   // if (["Vue", "React"].includes(stat.data.text)) {
   //   stat.data.text += " undroppable";
@@ -147,13 +143,13 @@ const useMouseAsMovePoint = ref(false);
 const rtl = ref(false);
 const btt = ref(false);
 
-const beforeDragOpen: BeforeDragOpen = (stat) => {
-  if (stat.data.text === "Animals" && stat.children.length === 1) {
-    context.targetTree!.addMulti(
-      [{ text: "add 1" }, { text: "add 2" }, { text: "add 3" }],
-      stat
-    );
-  }
+const beforeDragOpen = (stat) => {
+  // if (stat.data.text === "Animals" && stat.children.length === 1) {
+  //   context.targetTree!.addMulti(
+  //     [{ text: "add 1" }, { text: "add 2" }, { text: "add 3" }],
+  //     stat
+  //   );
+  // }
 };
 const ondragstart = (e, i) => {
   e.dataTransfer.setData('text', 'any') // required. 必须

@@ -15,7 +15,7 @@ let startMouse = null;
 let dragNode = null;
 let closestNode = null;
 
-export const context = {
+const context = {
   get startInfo() {
     return startInfo;
   },
@@ -184,7 +184,9 @@ const cpt = {
     const movePlaceholder = (parent, index) => {
       targetTree.ignoreUpdate(() => {
         // get placeholder
+        // console.log("targetTree", targetTree);
         if (!targetTree.has(targetTree.placeholderData)) {
+          // console.log("进来", targetTree.table);
           if (targetTree.table) {
             let colspan = 0;
             const tr = targetTree.getRootEl().querySelector("tr");
@@ -205,6 +207,7 @@ const cpt = {
           targetTree.add(targetTree.placeholderData);
         }
         const placeholder = targetTree.getStat(targetTree.placeholderData);
+
         targetTree.move(placeholder, parent, index);
       });
     };
@@ -790,10 +793,12 @@ const cpt = {
                   newData = startTree.dragCopyDataHandler(newData);
                 }
               }
+
               if (newData) {
                 targetTree.add(newData);
                 newDragNode = targetTree.getStat(newData);
               }
+
               targetTree.move(newDragNode, targetInfo.parent, targetIndex);
               targetTree.updateCheck();
             });

@@ -7,6 +7,7 @@
       <slot name="prepend" :tree="self"></slot>
     </template>
     <template #default="{ item: stat, index }">
+
       <TreeNode :vt-index="index" :class="[
         stat.class,
         {
@@ -264,14 +265,14 @@ const cpt = {
             }
           };
 
-          // processor["_statHandler2"] = this.statHandler
-          //   ? (stat) => {
-          //     if (stat.data === this.placeholderData) {
-          //       return stat;
-          //     }
-          //     return this.statHandler(stat);
-          //   }
-          //   : null;
+          processor["_statHandler2"] = this.statHandler
+            ? (stat) => {
+              if (stat.data === this.placeholderData) {
+                return stat;
+              }
+              return this.statHandler(stat);
+            }
+            : null;
 
           processor.afterSetStat = (stat, parent, index) => {
             const { childrenKey, updateBehavior } = this;
